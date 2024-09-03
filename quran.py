@@ -42,8 +42,8 @@ def main():
   try:
     mydb = mysql.connector.connect(
         host="localhost",     # enter IP address if the database is not locally hosted
-        user="syed",              # Username of the datbase
-        password="itsokay03",          # Password of the database server
+        user="syed",              # replace with your database username
+        password="itsokay03",          # replace with your DB password
         database="QURAN"           # Name of the database
     )
     mycursor = mydb.cursor()
