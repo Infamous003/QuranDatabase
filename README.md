@@ -9,7 +9,7 @@ Added a simple animation while printing the verses to the stdout using the time 
 
 MySQL database installed. You can download it [here](https://www.mysql.com/downloads/).
     
-mysql.connector module installed.
+mysql.connector module installed.  
 On Debian systems, run the following command:  
 ```sudo pip install mysql-connector-python```
 
