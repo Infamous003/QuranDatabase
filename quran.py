@@ -1,4 +1,5 @@
 import mysql.connector
+import time
 
 def introduce():
   print("_______________________________________________________________________________________\n")
@@ -13,7 +14,6 @@ def menu():
   print("3. Show an entire chapter(surah).")
   print("4. Show first N verses of a chapter.")
   print("5. EXIT")
-
   choice = int(input("Your choice? "))
   return choice
 
@@ -25,19 +25,26 @@ def getInput():
 def executeQuery(cursor, query):
   cursor.execute(query)
   result = cursor.fetchall()
-
-  print("##########################################################\n\n")
+  print("_____________________________________________________\n")
   for row in result:
-    print(f"{row[3]} ({row[1]}:{row[2]})")
-  print("\n\n##########################################################")
+    printVerse(row, row[2], row[3])
+  print("_____________________________________________________")
+
+def printVerse(verse, chapter, versenum):
+  verseText = verse[4]
+  verseText = list(verseText)
+  for i in list(verseText):
+    print(i, end='', flush=True)
+    time.sleep(0.05)
+  print(f" [{chapter}:{versenum}]")
 
 def main():
   try:
     mydb = mysql.connector.connect(
         host="localhost",     # enter IP address if the database is not locally hosted
-        user="",              # Username of the datbase
-        password="",          # Password of the database server
-        database=""           # Name of the database
+        user="syed",              # Username of the datbase
+        password="itsokay03",          # Password of the database server
+        database="QURAN"           # Name of the database
     )
     mycursor = mydb.cursor()
     while True:
@@ -63,15 +70,16 @@ def main():
         executeQuery(mycursor, query)
 
       elif choice == 5:
-        print("Salam...")
+        print("See ya...")
         break
 
       else:
-        print("Astagfirullah, NO!")
+        print("Okay, you're smart I get it -_-")
         continue
 
   except mysql.connector.Error as err:
-    print("Error connection :?/".format(err))
+    print(err)
+    return
 
   finally:
     if mydb.is_connected():
