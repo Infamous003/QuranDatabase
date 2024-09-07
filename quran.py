@@ -1,25 +1,46 @@
 import mysql.connector
 import time
+from rich import print
+from rich.console import Console
+console = Console()
 
 def introduce():
-  print("_______________________________________________________________________________________\n")
-  print("\tHi there! This is a simple CLI application that retrieves verses from the Quran.\n")
-  print("\tThis application uses MySQL database to store and retrieve verses.")
-  print("\tYou can use the following options to interact with the application:\n")
-  print("________________________________________________________________________________________")
+  bold_white = '[bold white]'
+  bold_white_end = '[/bold white]'
+
+  intro_line1 = f"\t{bold_white}Hi, there!{bold_white_end}, This is a simple, {bold_white}CLI application{bold_white_end}, that {bold_white}retrieves{bold_white_end} verses from {bold_white}the Quran{bold_white_end}.\n"
+  intro_line2 = f"\tThis application uses {bold_white}MySQL database{bold_white_end} to store and {bold_white}retrieve verses{bold_white_end}."
+  intro_line3 = f"\tYou can use the {bold_white}following options{bold_white_end} to interact with the application:\n"
+  border = "_______________________________________________________________________________________\n"
+
+  for i in border:
+    print(f"[bold white]{i}", end='', flush=True)
+    time.sleep(0.008)
+  print(intro_line1)
+  print(intro_line2)
+  print(intro_line3, end='', flush=True)
+  for i in border:
+    print(f"[bold white]{i}", end='', flush=True)
+    time.sleep(0.008)
+  
 
 def menu():
-  print("1. Show a verse.")
-  print("2. Show a random verse.")
-  print("3. Show an entire chapter(surah).")
-  print("4. Show first N verses of a chapter.")
-  print("5. EXIT")
-  choice = int(input("Your choice? "))
+  option_color = '[bold green1]'
+  number_color = '[white]'
+  print(f"{number_color}1. {option_color}Show a verse.")
+  print(f"{number_color}2. {option_color}Show a random verse.")
+  print(f"{number_color}3. {option_color}Show an entire chapter(surah).")
+  print(f"{number_color}4. {option_color}Show first N verses of a chapter.")
+  print(f"{number_color}5. {option_color}EXIT")
+  print(f"[bold turquoise4]Your choice? ", end='', flush=True)
+  choice = int(input())
   return choice
 
 def getInput():
-  chapter = int(input("Enter chapter number: "))
-  verse = int(input("Enter verse number: "))
+  print("[bold bright_white]Enter chapter number: ", end='', flush=True)
+  chapter = int(input())
+  print("[bold bright_white]Enter verse number: ", end='', flush=True)
+  verse = int(input())
   return [chapter, verse]
 
 def executeQuery(cursor, query):
@@ -34,9 +55,9 @@ def printVerse(verse, chapter, versenum):
   verseText = verse[4]
   verseText = list(verseText)
   for i in list(verseText):
-    print(i, end='', flush=True)
+    print(f"[bold green3]{i}", end='', flush=True)
     time.sleep(0.05)
-  print(f" [{chapter}:{versenum}]")
+  print(f"[bold bright_white] ({chapter}:{versenum})")
 
 def main():
   try:
